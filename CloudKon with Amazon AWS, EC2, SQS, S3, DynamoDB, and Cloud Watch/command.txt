@@ -1,0 +1,87 @@
+#Testing the working
+java -jar RunClient.jar client -s 200Sleep0 -w ./Sleep0Tasks.txt
+
+#10K Sleep 0 Tasks
+java -jar RunClient.jar client -s 10KSleep0 -w ./10KSleepTasks.txt
+
+#Sleep 10ms Tasks
+java -jar RunClient.jar client -s 16KSleep10 -w ./Sleep10Tasks\ Text\ Files/16000Sleep10Tasks.txt
+java -jar RunClient.jar client -s 8KSleep10 -w ./Sleep10Tasks\ Text\ Files/8000Sleep10Tasks.txt
+java -jar RunClient.jar client -s 4KSleep10 -w ./Sleep10Tasks\ Text\ Files/4000Sleep10Tasks.txt
+java -jar RunClient.jar client -s 2KSleep10 -w ./Sleep10Tasks\ Text\ Files/2000Sleep10Tasks.txt
+java -jar RunClient.jar client -s 1KSleep10 -w ./Sleep10Tasks\ Text\ Files/1000Sleep10Tasks.txt
+
+#Sleep 1000ms (1 Secs) Tasks
+java -jar RunClient.jar client -s 1600Sleep1s -w ./Sleep1000Tasks\ Text\ Files/1600Sleep1000Tasks.txt
+java -jar RunClient.jar client -s 800Sleep1s -w ./Sleep1000Tasks\ Text\ Files/800Sleep1000Tasks.txt
+java -jar RunClient.jar client -s 400Sleep1s -w ./Sleep1000Tasks\ Text\ Files/400Sleep1000Tasks.txt
+java -jar RunClient.jar client -s 200Sleep1s -w ./Sleep1000Tasks\ Text\ Files/200Sleep1000Tasks.txt
+java -jar RunClient.jar client -s 100Sleep1s -w ./Sleep1000Tasks\ Text\ Files/100Sleep1000Tasks.txt
+
+#Sleep 10000ms (10 secs) Tasks
+
+java -jar RunClient.jar client -s 160Sleep10s -w ./Sleep10000Tasks\ Text\ Files/160Sleep10000Tasks.txt
+java -jar RunClient.jar client -s 80Sleep10s -w ./Sleep10000Tasks\ Text\ Files/80Sleep10000Tasks.txt
+java -jar RunClient.jar client -s 40Sleep10s -w ./Sleep10000Tasks\ Text\ Files/40Sleep10000Tasks.txt
+java -jar RunClient.jar client -s 20Sleep10s -w ./Sleep10000Tasks\ Text\ Files/20Sleep10000Tasks.txt
+java -jar RunClient.jar client -s 10Sleep10s -w ./Sleep10000Tasks\ Text\ Files/10Sleep10000Tasks.txt
+
+
+
+------------------------------------------------------
+#From local to Workers
+
+#Sleep 0 Tasks
+pssh -i -t 1000000 -h ipAddressOfWorkers2.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 10KSleep0 -t 1'
+
+
+#Sleep 10ms Tasks
+pssh -i -t 1000000 -h ipAddressOfWorkers16.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 16KSleep10 -t 16'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers8.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 8KSleep10 -t 8'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers4.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 4KSleep10 -t 4'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers2.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 2KSleep10 -t 2'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers1.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 1KSleep10 -t 1'
+
+
+
+#Sleep 1000ms Tasks
+pssh -i -t 1000000 -h ipAddressOfWorkers16.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 1600Sleep1s -t 16'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers8.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 800Sleep1s -t 8'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers4.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 400Sleep1s -t 4'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers2.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 200Sleep1s -t 2'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers1.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 100Sleep1s -t 1'
+
+
+
+#Sleep 10000ms Tasks
+pssh -i -t 1000000 -h ipAddressOfWorkers16.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 160Sleep10s -t 16'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers8.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 80Sleep10s -t 8'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers4.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 40Sleep10s -t 4'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers2.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 20Sleep10s -t 2'
+
+pssh -i -t 1000000 -h ipAddressOfWorkers1.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i ./CloudPA3.pem" 'java -jar RunWorker.jar worker -s 10Sleep10s -t 1'
+
+
+
+
+Animato
+CLient:
+java -jar AnimatoClient.jar client -s animato -w ./ImagesURLs.txt
+
+Worker:
+java -jar AnimatoWorker.jar worker -s animato -t 1
+
+
+
+https://animoto9de6a6a3-6cdb-4b1d-8cdb-7534073f508e.s3.amazonaws.com/ImagesURL.txt

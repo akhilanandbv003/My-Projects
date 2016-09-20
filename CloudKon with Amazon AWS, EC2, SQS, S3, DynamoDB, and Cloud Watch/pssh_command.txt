@@ -1,0 +1,30 @@
+#Sleep 10ms Tasks--- In Local VM
+pssh -i -t 1000000 -h 16-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10ms-sleep-16000-16-thread -t 16'
+
+pssh -i -t 1000000 -h 8-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10ms-sleep-8000-8-thread -t 8'
+
+pssh -i -t 1000000 -h 4-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10ms-sleep-4000-4-thread -t 4'
+
+pssh -i -t 1000000 -h 2-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10ms-sleep-2-2-thread -t 2'
+
+
+#Sleep 1000ms Tasks
+pssh -i -t 1000000 -h 16-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-1600-16-queue -t 16'
+
+pssh -i -t 1000000 -h 8-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-800-8-queue t 8'
+
+pssh -i -t 1000000 -h 4-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-400-4-queue -t 4'
+
+pssh -i -t 1000000 -h 2-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-200-2-thread -t 2'
+
+
+
+#Sleep 10000ms Tasks
+pssh -i -t 1000000 -h 16-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10000ms-sleep-160-16-queue -t 16'
+
+pssh -i -t 1000000 -h 8-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 10000ms-sleep-80-8-queue t 8'
+
+pssh -i -t 1000000 -h 4-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-40-4-queue -t 4'
+
+pssh -i -t 1000000 -h 2-worker-ip.txt -l ec2-user -x "-oStrictHostKeyChecking=no  -i pa3.pem" 'java -jar RemoteWorker.jar worker -s 1000ms-sleep-20-2-thread -t 2'
+
