@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Welcome to BooKart</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
+		<script src="app.js"></script>
+		
+	</head>
+	
+	<body>
+		
+		<div id="header-wrapper" ng-controller="HeaderCtrl">
+			<!-- <span class="logo pull-left">BooKart</span> -->
+			<span class="logo pull-left">{{appDetails.title}}</span>
+			
+			<span class="tagline pull-left">{{appDetails.tagline}}</span>
+			<!-- <span class="tagline pull-left">We have more than 1 Million Books for you</span> -->
+			<div class="nav-wrapper pull-left">
+				<ul class="nav nav-pills">
+					<li class="active"> <a href="#/books">Books</a></li>
+					<li><a href="#/kart">Kart</a></li>
+				</ul>
+			</div>	
+		</div>	
+		
+		<div ng-view class="container">
+			
+		</div>
+		
+		
+	</body>
+</html>

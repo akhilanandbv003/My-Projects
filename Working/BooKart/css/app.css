@@ -1,0 +1,40 @@
+#header-wrapper{
+	width: 100%;
+}
+
+.logo{
+	padding: 10px;
+	margin-right: 10px;
+	font-size: 35px;
+	font-family:Futura;
+}
+
+.tagline{
+	font-size: 10px;
+	margin-top:50px;
+	margin-left: -123px;
+	font-family: Marlett;
+}
+
+.nav-wrapper{
+	margin-left:  100px;
+	margin-top: 15px;
+}
+
+#bookListWrapper{
+	width: 100%;
+	padding:10px;
+}
+
+#bookListWrapper input{
+	width:25%;
+}
+
+#bookListWrapper .book{
+	border: 1px solid gray;
+	padding: 10px;
+	margin-bottom:10px;
+}
+#bookListWrapper .book .book-details{
+	margin-left:500px;
+}
