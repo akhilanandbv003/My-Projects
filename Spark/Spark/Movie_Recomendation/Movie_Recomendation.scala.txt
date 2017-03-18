@@ -1,0 +1,12 @@
+ var movieNames:Map[Int, String] = Map()
+    
+     val lines = Source.fromFile("../ml-100k/u.item").getLines()
+     for (line <- lines) {
+       var fields = line.split('|')
+       if (fields.length > 1) {
+        movieNames += (fields(0).toInt -> fields(1))
+       }
+     }
+    
+     return movieNames
+  }

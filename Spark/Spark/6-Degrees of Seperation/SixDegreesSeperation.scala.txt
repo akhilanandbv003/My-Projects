@@ -1,0 +1,11 @@
+val startCharacterID = 5306 //SpiderMan
+  val targetCharacterID = 14 //ADAM 3,031 (who?)
+  
+  // We make our accumulator a "global" Option so we can reference it in a mapper later.
+  var hitCounter:Option[LongAccumulator] = None
+  
+  // Some custom data types 
+  // BFSData contains an array of hero ID connections, the distance, and color.
+  type BFSData = (Array[Int], Int, String)
+  // A BFSNode has a heroID and the BFSData associated with it.
+  type BFSNode = (Int, BFSData)
