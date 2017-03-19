@@ -1,0 +1,51 @@
+# Calculate aggregate statistics (e.g., average or sum) using Spark
+
+1)Get the count 
+
+val ordersRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/orders")
+
+ordersRDD.count()
+
+2) Sum of the all revenue of all orders
+
+val orderItemsRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/order_items")
+
+val orderItemsMap = orderItemsRDD.map(rec => (rec.split(",")(4).toDouble))
+orderItemsMap.take(5).foreach(println)
+
+val orderItemsReduce = orderItemsMap.reduce((acc, value) => acc + value)
+
+print(f" $orderItemsReduce%.2f")
+
+3)Average Revenue
+
+
+val count= orderItemsRDD.map(_.split(",")(1).toInt).distinct().count()
+val avgRev = orderItemsReduce/count
+
+4)To get the max priced product
+
+val orderItemsRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/order_items")
+
+val orderItemsMap=orderItemsRDD.map(x => (x.split(",")(1).toInt,x.split(",")(4).toFloat))
+
+orderItemsMap.take(5).foreach(println)
+
+val orderItemsReduced = orderItemsMap.reduceByKey((acc,value) => acc+value) //Value is a key word..Will get error if used anything else
+
+
+orderItemsReduced.take(5).foreach(println)
+
+val sortedByRevenue = orderItemsReduced.map(x =>(x._2,x._1)) //Flipping key value pair so that we can sort by key
+
+sortedByRevenue.take(5).foreach(println)
+
+val x=sortedByRevenue.sortByKey().top(1)
+
+|OR|
+
+val revenuwPerOrder = orderItemsReduced.reduce((acc,value) => (if (acc._2 >= value._2) acc else value))
+
+
+
+

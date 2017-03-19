@@ -1,0 +1,56 @@
+########### COUNT BY Key##############
+
+1) Number of orders by status
+
+val ordersRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/orders")
+ordersRDD.take(5).foreach(println)
+val ordersMap = ordersRDD.map(x => (x.split(",")(3),x)).countByKey()
+ordersMap.take(5).foreach(println)
+
+
+###########GROUP BY Key##############
+//groupByKey is not very efficient for aggregations. It does not use combiner
+
+2) Number of orders by status
+
+val ordersRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/orders")
+ordersRDD.take(5).foreach(println)
+
+//GroupByKey aggregates key,[value...] .Here (key,[1,1,1,1,]).So we sum the 2nd ele of list
+
+val ordersMap = ordersRDD.map(x => (x.split(",")(3) ,1)).groupByKey().map(x => (x_1,x_2.sum())) 
+
+ordersMap.take(5).foreach(println)
+
+
+
+########### REDUCE BY Key##############
+//reduceByKey uses combiner - both reducer logic and combiner logic are same
+
+3) Number of orders by status
+ 
+val ordersRDD = sc.textFile("/user/akhilanand.bv_gmail/CCA-175/Sqoop_Imports/retail_db/orders")
+ordersRDD.take(5).foreach(println)
+
+val ordersMap = ordersRDD.map(x => (x.split(",")(3) ,1)).reduceByKey((acc,value) => acc+value).collect().foreach(println)
+
+
+
+
+########### COMBINE BY Key##############
+//combineByKey can be used when reduce logic and combine logic are different
+//Both reduceByKey and combineByKey expects type of input data and output data are same
+
+4)
+
+val ordersByStatus = ordersMap.combineByKey(value => 1, (acc: Int, value: Int) => acc+value,  (acc: Int, value: Int) => acc+value)
+
+########### AGGREGATE BY Key##############
+//aggregateByKey can be used when reduce logic and combine logic is different
+//Also type of input data and output data need not be same
+
+5)
+
+val ordersMap = ordersRDD.map(rec =>  (rec.split(",")(3), rec))
+val ordersByStatus = ordersMap.aggregateByKey(0, (acc, value) => acc+1, (acc, value) => acc+value)
+ordersByStatus.collect().foreach(println)
