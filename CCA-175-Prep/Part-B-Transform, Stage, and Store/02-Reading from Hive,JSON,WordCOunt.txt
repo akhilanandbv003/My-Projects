@@ -1,0 +1,43 @@
+################### Load From HIVE or SPARK SQL #######################
+
+import org.apache.spark.sql.hive.HiveContext
+val sqlContext = new HiveContext(sc)
+
+//Inport is mandatory or else ll throw error
+
+val depts = sqlContext.sql("select * from departments")
+//Read from Hive table and load to RDD
+
+depts.collect().foreach(println)
+
+//Create table using Hive context
+sqlContext.sql("create table departmentsSparkSQL as select * from departments")
+
+val depts = sqlContext.sql("select * from departmentsSparkSQL")
+depts.collect().foreach(println)
+
+
+#######################Load From JSON #######################
+
+import org.apache.spark.sql.SQLContext
+val sqlContext = new SQLContext(sc)
+
+hadoop fs -put jsonFile.json /simplilearn/akhil/
+
+vi jsonFile.json
+
+val departmentsJson = sqlContext.jsonFile("/simplilearn/akhil/jsonFile.json")
+
+#Writing data in json format
+departmentsData.toJSON.saveAsTextFile("/simplilearn/akhil/departmentsJson")
+
+
+############### Basic Word Counnt #######################
+
+val data = sc.textFile("/simplilearn/aa.txt")
+ 
+val dataFlatMap = data.flatMap(x => x.split(" "))
+
+val dataMap = dataFlatMap.map( x => (x,1))
+
+val reduceData = dataMap.reduceByKey((x,y) => x+y)

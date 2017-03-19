@@ -1,0 +1,88 @@
+Load RDD data from HDFS for use in Spark applications
+------------------------------------------------------
+
+1)Saving and Reading as TEXT FILE 
+
+val dataRDD = sc.textFile("/simplilearn/akhil/sqoop_import/departments")
+
+dataRDD.collect().foreach(println)
+
+dataRDD.count()
+
+dataRDD.saveAsTextFile("/simplilearn/akhil/sqoop_import/departments")
+
+//Saves the RDD as a text file in hdfs
+
+2) Save as OBJECT  file 
+
+dataRDD.saveAsObjectFile("/simplilearn/akhil/sqoop_import/departmentsObject")
+
+Make sure the location you write has write permission for you or else you will get errors
+
+3) Saving SEQUENCE File
+#saveAsSequenceFile with KEY-> NULL VALUE->The whole row
+
+import org.apache.hadoop.io._ (_ in scala = *)
+
+#Sequence file needs a key value pair , we have to specify. Here we specify key as a NULL 
+
+dataRDD.map(x => (NullWritable.get(), x)).saveAsSequenceFile("/simplilearn/akhil/SparkScala/departmentsSeq")
+
+
+4) Saving SEQUENCE File
+#saveAsSequenceFile with KEY-> department  id VALUE-> department name
+#Here we are giving key=>department  id and VALUE=> department name
+
+dataRDD.map(x => (x.split(",")(0), x.split(",")(1))).saveAsSequenceFile("/simplilearn/akhil/SparkScala/departmentsSeqID")
+
+5)Saving as HadoopFileFormat
+
+import org.apache.hadoop.mapreduce.lib.output._
+//Make sure the package is imported
+//Directory for the path specified doesnot exist
+//dataRDD is the RDD name which is used to read the normal file from HDFS
+
+
+val path="/simplilearn/akhil/SparkScala/departmentsSeqID1"
+
+
+val read=dataRDD.map(x => (new Text(x.split(",")(0)), new Text(x.split(",")(1)))).saveAsNewAPIHadoopFile(path, classOf[Text], classOf[Text], classOf[SequenceFileOutputFormat[Text, Text]])
+
+//We split the input file based on "," and make it as key value pair 
+//saveAsNewAPIHadoopFile--> function to save as any file 
+
+FileOutputCommitter		  An OutputCommitter that commits files specified in job output directory i.e.
+FileOutputFormat<K,V>		  A base class for OutputFormats that read from FileSystems.
+FilterOutputFormat<K,V>		  FilterOutputFormat is a convenience class that wraps OutputFormat.
+LazyOutputFormat<K,V>		  A Convenience class that creates output lazily.
+MapFileOutputFormat		  An OutputFormat that writes MapFiles.
+MultipleOutputs<KEYOUT,VALUEOUT>  The MultipleOutputs class simplifies writing output data to multiple outputs
+NullOutputFormat<K,V>	          Consume all outputs and put them in /dev/null.
+PartialFileOutputCommitter	  An OutputCommitter that commits files specified in job output directory i.e.
+SequenceFileAsBinaryOutputFormat  An OutputFormat that writes keys, values to SequenceFiles in binary(raw) format
+SequenceFileOutputFormat<K,V>	  An OutputFormat that writes SequenceFiles.
+TextOutputFormat<K,V>	 	  An OutputFormat that writes plain text files.
+
+6) reading SEQUENCE file
+//The saved file i/o types should match with the ones here.This will work with only the above one saved as key->ID and value->DeptName
+
+sc.sequenceFile("/simplilearn/akhil/SparkScala/departmentsSeqID1",classOf[IntWritable], classOf[Text]).map(rec => rec.toString()).collect().foreach(println)
+
+//This will work for any
+sc.sequenceFile("/simplilearn/akhil/SparkScala/departmentsSeqID1",classOf[Text], classOf[Text]).map(rec => rec.toString()).collect().foreach(println)
+
+sc.objectFile[]("/simplilearn/akhil/sqoop_import/departmentsObject")collect().foreach(println)
+
+7)Reading OBJECT File
+
+sc.objectFile("/simplilearn/akhil/sqoop_import/departmentsObject").collect().foreach(println)
+
+
+8) Reading a HadoopFileFormat
+val path="/simplilearn/akhil/SparkScala/departmentsSeqID1"
+
+val input = sc.newAPIHadoopFile [TextInputFormat,TextInputFormat,SequenceFileOutputFormat[Text, Text]].map(rec => rec.toString()).collect().foreach(println)
+
+ 
+
+
