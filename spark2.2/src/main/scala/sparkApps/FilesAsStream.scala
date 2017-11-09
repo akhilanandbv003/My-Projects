@@ -1,7 +1,7 @@
-import java.util.concurrent.TimeUnit
+package sparkApps
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.streaming.{OutputMode, Trigger}
+import org.apache.spark.sql.streaming.OutputMode
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 
