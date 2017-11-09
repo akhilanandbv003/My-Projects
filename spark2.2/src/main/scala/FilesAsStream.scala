@@ -24,6 +24,8 @@ object FilesAsStream {
       .option("header", "true")
       .schema(schema)
       .csv("/Users/avenk3/spark/CCA175/spark2/src/main/resources/csv")
+    //Place the CSV in this folder and stream doesn't detect changes in csv.
+    //Only detects new csv files with same schema
 
     val query = fileStreamDf.writeStream
       .format("console")
